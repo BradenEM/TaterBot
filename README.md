@@ -1,0 +1,2 @@
+# TaterBot
+Discord Bot
