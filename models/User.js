@@ -10,6 +10,10 @@ const User = db.define('User', {
     username: {
         type: DataTypes.TEXT
     }, 
+    balance: {
+        type: DataTypes.INTEGER,
+        default: 0
+    }
     
 },{
     timestamps: false

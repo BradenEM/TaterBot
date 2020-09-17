@@ -6,30 +6,36 @@ module.exports = {
   name: `transaction`,
   description: 'perforrming a transaction between two users',
   async execute(msg) {
-    if (msg.mentions.users.size != 2) {
-      console.log(msg.mentions.users.id);
-      return msg.channel.send('You need to tag 2 users to complete a transaction')
-    } else {
+
+    values = msg.mentions.users.map(user => {
+      return [user.id]
+    });
+    splitmessage = msg.content.split(" ")
+    size = msg.mentions.users.size
+    amt = splitmessage[3]
+
+    if (size == 2 && splitmessage.length > 3) {
+      if (isNaN(amt)) {
+        return msg.channel.send('Amount must be a number')
+      } else {
         try {
-          values = msg.mentions.users.map(user => {
-              return [user.id, user.username]
-          });
-          console.log(values[1][0])
           await Transaction.create({
             paying_user: values[0][0],
             receiving_user: values[1][0],
-            amount: 1
+            amount: amt
           })
           msg.channel.send('Transaction recorded successfully')
         } catch (e) {
-          if (e) {
-              return msg.channel.send(`err: ${e}`)
-          } else {
-              return msg.channel.send(`ERROR: ${e}`)
-          }
+          return msg.channel.send(`ERROR: ${e}`)
         }
       }
-      
+    } else if (size != 2) {
+      return msg.channel.send('Transaction must include 2 tagged users and they must be different')
+    } else if (splitmessage.length < 4) {
+      return msg.channel.send('An amount must be included and it must be a number')
+    } else {
+      return msg.channel.send('Tell Babe what you did')
+    }
     await Transaction.sync();
-  },
+  }
 };
