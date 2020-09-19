@@ -5,14 +5,13 @@ module.exports = {
   name: `adduser`,
   description: "Add user to db",
   async execute(msg) {
+    values = msg.mentions.users.map((user) => {
+      return [user.id, user.username];
+    });
     if (msg.mentions.users.size != 1) {
       return msg.channel.send("Please tag a user to add them to the db");
     } else {
       try {
-        values = msg.mentions.users.map((user) => {
-          return [user.id, user.username];
-        });
-
         await User.create({
           discord_id: values[0][0],
           username: values[0][1],

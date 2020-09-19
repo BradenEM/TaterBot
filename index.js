@@ -12,7 +12,7 @@ Object.keys(botCommands).map(key => {
 });
 
 const TOKEN = process.env.TOKEN;
-const PREFIX = 'bt!';
+const PREFIX = 'tb!';
 
 bot.login(TOKEN);
 
@@ -38,9 +38,9 @@ bot.on('message', msg => {
     if (!command) {
       msg.channel.send("Use bt!help for help.")
     }
-  
+
     if (!bot.commands.has(command)) return;
-  
+
     try {
       bot.commands.get(command).execute(msg, args);
     } catch (error) {
@@ -49,6 +49,6 @@ bot.on('message', msg => {
     }
   }
 
-  
-  
+
+
 });
