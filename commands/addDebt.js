@@ -1,8 +1,8 @@
-const Transaction = require('../models/Transaction')
+const Debt = require('../models/Debt');
 
 module.exports = {
-  name: `transaction`,
-  description: 'perforrming a transaction between two users',
+  name: `adddebt`,
+  description: 'Adding a debt between two users',
   async execute(msg) {
 
     values = msg.mentions.users.map(user => {
@@ -17,23 +17,23 @@ module.exports = {
         return msg.channel.send('Amount must be a number')
       } else {
         try {
-          await Transaction.create({
-            paying_user: values[0][0],
-            receiving_user: values[1][0],
+          await Debt.create({
+            owing_user: values[0][0],
+            collecting_user: values[1][0],
             amount: amt
           })
-          msg.channel.send('Transaction recorded successfully')
+          msg.channel.send('Debt recorded successfully')
         } catch (e) {
           return msg.channel.send(`ERROR: ${e}`)
         }
       }
     } else if (size != 2) {
-      return msg.channel.send('Transaction must include 2 tagged users and they must be different')
+      return msg.channel.send('Debt must include 2 tagged users and they must be different')
     } else if (splitmessage.length < 4) {
       return msg.channel.send('An amount must be included and it must be a number')
     } else {
       return msg.channel.send('Tell Babe what you did')
     }
-    await Transaction.sync();
+    await Debt.sync();
   }
 };

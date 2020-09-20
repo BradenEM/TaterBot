@@ -4,14 +4,14 @@ const {
 } = require('sequelize');
 const db = require('../config/database');
 
-const Transaction = db.define('Transaction', {
+const Debt = db.define('Debt', {
     id: {
         type: DataTypes.INTEGER,
         unique: true,
         primaryKey: true,
         autoIncrement: true
     },
-    paying_user: {
+    owing_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -19,7 +19,7 @@ const Transaction = db.define('Transaction', {
             key: 'discord_id'
         }
     },
-    receiving_user: {
+    collecting_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -39,4 +39,4 @@ const Transaction = db.define('Transaction', {
     timestamps: false
 });
 
-module.exports = Transaction
+module.exports = Debt
