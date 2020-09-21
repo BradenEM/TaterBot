@@ -10,11 +10,11 @@ module.exports = {
     });
     splitmessage = msg.content.split(" ")
     size = msg.mentions.users.size
-    amt = splitmessage[3]
+    amt = Math.floor(splitmessage[3])
 
     if (size == 2 && splitmessage.length > 3) {
       if (isNaN(amt)) {
-        return msg.channel.send('Amount must be a number')
+        return msg.channel.send('Amount must be a number or you have additional spaces in your command')
       } else {
         try {
           await Transaction.create({

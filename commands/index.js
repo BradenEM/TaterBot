@@ -4,7 +4,7 @@ module.exports = {
   Transaction: require('./transaction'),
   PissOff: require('./pissOff'),
   AddUser: require('./addUser'),
-  UserBalance: require('./singleBalance'),
+  //UserBalance: require('./singleBalance'),
   BalanceBetween: require('./balanceBetween'),
   AddDebt: require('./addDebt')
 };

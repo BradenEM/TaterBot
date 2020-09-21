@@ -36,7 +36,7 @@ bot.on('message', msg => {
     console.info(`command: ${command}`);
 
     if (!command) {
-      msg.channel.send("Use bt!help for help.")
+      msg.channel.send("Use tb!help for help.")
     }
 
     if (!bot.commands.has(command)) return;
