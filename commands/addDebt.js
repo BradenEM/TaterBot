@@ -12,6 +12,7 @@ module.exports = {
     size = msg.mentions.users.size
     amt = Math.floor(splitmessage[3])
 
+    console.log(values[0][0])
     if (size == 2 && splitmessage.length > 3) {
       if (isNaN(amt)) {
         console.log(amt)
@@ -19,11 +20,12 @@ module.exports = {
       } else {
         try {
           await Debt.create({
-            owing_user: values[0][0],
-            collecting_user: values[1][0],
-            amount: amt
+            owing_user: parseInt(values[0][0]),
+            collecting_user: parseInt(values[1][0]),
+            amount: parseInt(amt)
           })
-          msg.channel.send('Debt recorded successfully')
+          await Debt.sync();
+          return msg.channel.send('Debt recorded successfully')
         } catch (e) {
           if (e == "SequelizeForeignKeyConstraintError: SQLITE_CONSTRAINT: FOREIGN KEY constraint failed") {
             return msg.channel.send('Make sure both users have been added via the "add" command')
@@ -39,6 +41,5 @@ module.exports = {
     } else {
       return msg.channel.send('Tell Babe what you did')
     }
-    await Debt.sync();
   }
 };

@@ -7,12 +7,12 @@ module.exports = {
         values = msg.mentions.users.map((user) => {
             return [user.id, user.username];
         });
-
+        console.log(values)
 
         if (msg.mentions.users.size == 2) {
             transBalance = await Calls.transBalanceBetween(values[0][0], values[1][0])
             debtBalance = await Calls.debtBalanceBetween(values[0][0], values[1][0])
-
+            console.log(transBalance, debtBalance)
             if (transBalance.length == 0 && debtBalance.length == 0) {
                 return msg.channel.send(`${values[0][1]} and ${values[1][1]} are even`)
             } else if (debtBalance.length > 0 && transBalance.length == 0) {

@@ -43,16 +43,14 @@ function transBalanceBetween(payingUser, receivingUser) {
     return Transaction.findAll({
         where: {
             [Op.and]: [{
-                    paying_user: payingUser
-                },
-                {
-                    receiving_user: receivingUser
-                }
-            ]
+                receiving_user: receivingUser,
+                paying_user: payingUser
+
+            }]
         },
         attributes: [
             'paying_user',
-            [db.fn('sum', db.col('amount')), 'total'],
+            [db.fn('SUM', db.col('amount')), 'total'],
         ],
         group: ['paying_user'],
     })
@@ -62,13 +60,9 @@ function transBalanceBetween(payingUser, receivingUser) {
 function debtBalanceBetween(owingUser, collectingUser) {
     return Debt.findAll({
         where: {
-            [Op.and]: [{
-                    owing_user: owingUser
-                },
-                {
-                    collecting_user: collectingUser
-                }
-            ]
+            owing_user: owingUser,
+            collecting_user: collectingUser
+
         },
         attributes: [
             'owing_user',

@@ -2,7 +2,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const botCommands = require('./commands');
-const db = require('./config/database');
+const db = require('./config/config.js');
 
 
 bot.commands = new Discord.Collection();
@@ -23,9 +23,9 @@ bot.on('ready', () => {
 
 
 // Testing DB
-db.authenticate()
-  .then(() => console.log('Database connected'))
-  .catch(err => console.log(`error: ${err}`));
+// db.authenticate()
+//   .then(() => console.log('Database connected'))
+//   .catch(err => console.log(`error: ${err}`));
 
 bot.on('message', msg => {
   if (msg.content.startsWith(PREFIX)) {

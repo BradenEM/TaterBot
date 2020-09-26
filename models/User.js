@@ -1,25 +1,24 @@
+'use strict';
 const {
-    Sequelize,
-    DataTypes
+  Model
 } = require('sequelize');
-const db = require('../config/database');
-
-const User = db.define('User', {
-    discord_id: {
-        type: DataTypes.BIGINT,
-        unique: true,
-        primaryKey: true
-    },
-    username: {
-        type: DataTypes.TEXT
-    },
-    balance: {
-        type: DataTypes.INTEGER,
-        default: 0
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-
-}, {
-    timestamps: false
-});
-
-module.exports = User
+  };
+  User.init({
+    discord_id: DataTypes.STRING,
+    username: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};

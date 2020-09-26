@@ -18,9 +18,9 @@ module.exports = {
       } else {
         try {
           await Transaction.create({
-            paying_user: values[0][0],
-            receiving_user: values[1][0],
-            amount: amt
+            paying_user: parseInt(values[0][0]),
+            receiving_user: parseInt(values[1][0]),
+            amount: parseInt(amt)
           })
           msg.channel.send('Transaction recorded successfully')
         } catch (e) {
